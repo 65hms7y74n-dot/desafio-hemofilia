@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio CG2 - Hemofilia A</title>
+  
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  
+  <div id="toast-container"></div>
+
+  <div id="password-container">
+    <div class="login-box">
+      <h1>🧬 Desafio CG2</h1>
+      <p class="subtitle">Simulação de Diagnóstico Genético</p>
+      <input type="password" id="password-input" placeholder="Senha de acesso">
+      <button id="password-button">Acessar Sistema</button>
+      <p id="login-error" style="display:none; color: #ff6b6b; margin-top: 10px;">Senha incorreta.</p>
+    </div>
+  </div>
+
+  <div id="game-container">
+    
+    <header class="header-fixed">
+      <div class="header-info">
+        <h2>Caso Clínico: Hemofilia A</h2>
+        <span class="patient-id">Paciente: L.A.S. (4 meses)</span>
+      </div>
+      
+      <div class="actions-container">
+        <button class="action-btn finish" onclick="openDiagnosisModal()">✅ Concluir Caso</button>
+      </div>
+
+      <div id="wallet-display" class="wallet-card">
+        <span class="wallet-label">Orçamento Disponível</span>
+        <span id="total-money">R$ ---</span>
+      </div>
+    </header>
+
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('caso')">📖 Histórico</button>
+      <button class="tab-btn" onclick="switchTab('exames')">💉 Solicitar Exames</button>
+      <button class="tab-btn" onclick="switchTab('resultados')" id="tab-btn-resultados">
+        📂 Resultados
+        <span id="notification-badge" class="badge-dot"></span>
+      </button>
+    </nav>
+
+    <div id="tab-caso" class="tab-content active">
+      <div class="card">
+        <h3>Histórico da Paciente</h3>
+        <p class="case-text" style="font-size: 1.1em; color: #1e3a8a; margin-bottom: 20px;">
+          Lactente do sexo feminino, 4 meses de idade, previamente hígida, apresenta episódios de equimoses extensas após vacinas e hematomas musculares volumosos após traumas mínimos. Exames mostram atividade de fator VIII abaixo de 2%, compatível com hemofilia grave.
+        </p>
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+        <h4 style="color: #475569; margin-bottom: 10px;">📋 Relatório de Encaminhamento Médico</h4>
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem;">
+            <ul style="list-style: none; padding: 0; margin: 0; color: #334155;">
+                <li style="margin-bottom: 5px;"><strong>Paciente:</strong> L.A.S., sexo feminino, 4 meses</li>
+                <li style="margin-bottom: 5px;"><strong>Encaminhada por:</strong> Pediatra assistente</li>
+                <li><strong>Motivo da consulta:</strong> Avaliação de sangramento anormal e investigação de distúrbio hereditário da coagulação (Hemofilia).</li>
+            </ul>
+        </div>
+        <p class="case-text">
+          <strong>História Clínica:</strong><br>
+          L.A.S., lactente do sexo feminino, 4 meses de idade, previamente hígida, nasceu a termo por parto vaginal sem eventos perinatais. Evoluiu bem no período neonatal, sem icterícia significativa ou intercorrências infecciosas. Aos 3 meses, apresentou equimoses extensas em membros inferiores após vacina de rotina, de resolução lenta. Nas semanas subsequentes, desenvolveu hematomas espontâneos em face posterior de coxas e região glútea. Não há relato de sangramento mucoso, hemorragia gastrointestinal ou urinária.
+        </p>
+        <p class="case-text">
+          Deu entrada na emergência há 10 dias devido a aumento progressivo de volume em coxa direita após leve trauma, sendo identificada coleção compatível com hematoma intramuscular volumoso. Hemograma sem alterações relevantes; entretanto, coagulograma demonstrou aPTT prolongado, com correção em mistura, e atividade de fator VIII inferior a 2%, sugerindo diagnóstico de hemofilia A grave.
+        </p>
+        <p class="case-text"><strong>Antecedentes pessoais e familiares:</strong></p>
+        <ul style="color: #334155; line-height: 1.6; margin-bottom: 20px;">
+            <li>Crescimento e desenvolvimento dentro do esperado para a idade. Sem malformações aparentes, proporções corporais normais e bom ganho ponderoestatural.</li>
+            <li>Exame físico repetido em nossas avaliações não demonstra estigmas dismórficos. Sem histórico de infecções recorrentes ou outras comorbidades.</li>
+            <li>Mãe sem história hemorrágica, sem menorragia ou sangramentos prolongados.</li>
+            <li>Pai assintomático, pais não consanguíneos.</li>
+            <li>Um irmão do sexo masculino previamente diagnosticado com hemofilia devido a baixos níveis do Fator de Coagulação 8 (F8).</li>
+            <li>Um irmão do sexo masculino sem histórico hemorrágico.</li>
+        </ul>
+        <div class="alert-box">
+          <strong>Encaminhamento:</strong> Em vista do conjunto de achados clínicos e hematológicos e histórico familiar, solicita-se investigação molecular específica para elucidação diagnóstica e aconselhamento reprodutivo familiar.
+        </div>
+      </div>
+      <div class="card">
+        <h3>Heredograma</h3>
+        <div class="heredogram-container">
+          <img src="heredograma.png" alt="Heredograma da Família" class="heredogram-img" onerror="this.style.display='none'; document.getElementById('hero-error').style.display='block'">
+          <p id="hero-error" style="display:none; color:red; text-align:center;">(Imagem 'heredograma.png' não encontrada na pasta)</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-exames" class="tab-content">
+      <div class="section-title">
+        <h3>Catálogo de Exames</h3>
+        <p>Selecione uma categoria à esquerda para ver os exames disponíveis.</p>
+      </div>
+      
+      <div class="exams-layout">
+        <div id="categories-list" class="categories-sidebar"></div>
+        <div class="exams-area">
+            <h4 id="selected-category-title" style="margin-top:0; color:var(--primary);">Selecione um tipo de exame</h4>
+            <div id="exams-grid" class="exams-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-resultados" class="tab-content">
+        <div class="section-title">
+            <h3>📂 Resultados Laboratoriais</h3>
+            <p>Os laudos dos exames solicitados aparecerão aqui após o processamento.</p>
+        </div>
+        <div id="results">
+            <div class="empty-state">
+              <p style="text-align:center; color:#94a3b8; font-style:italic; padding: 40px;">
+                Nenhum exame solicitado ainda.<br>Vá para a aba "Solicitar Exames".
+              </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+      <p id="timestamp"></p>
+      <p class="credits">Criado por: Profa. Dra. Karina Griesi, Carolina Souza Sanchez e Felipe Louza Rassi</p>
+    </footer>
+  </div>
+
+  <div id="diagnosis-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>📋 Conclusão do Caso</h3>
+      <p>Com base nos exames, qual é a sua hipótese diagnóstica e a conduta sugerida?</p>
+      <textarea id="diagnosis-text" placeholder="Escreva seu diagnóstico aqui..."></textarea>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeDiagnosisModal()">Cancelar</button>
+        <button class="confirm-btn" onclick="submitDiagnosis()">Enviar Relatório</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="gene-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 400px;">
+      <h3>🧬 Requisição de Sequenciamento</h3>
+      <p>Este exame requer a especificação do gene alvo. O laboratório processará apenas o gene informado.</p>
+      <input type="text" id="gene-modal-input" class="gene-input" placeholder="Ex: F8" style="width: 100%; margin: 15px 0;">
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeGeneModal()">Cancelar</button>
+        <button class="confirm-btn" onclick="confirmGeneRequest()">Confirmar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
